@@ -25,33 +25,7 @@
                 "height": 768
             }
         },
-        "enemy_rectangle": {
-            "type": "rectangle",
-            "position": {"x": 0, "y": 200},
-            "properties": {
-                "texture": "rectangle_image",
-                "group": "hud",
-                "scale": {"x": 0.3, "y": 1}
-            }
-        },
-        "action_rectangle": {
-            "type": "rectangle",
-            "position": {"x": 96, "y": 200},
-            "properties": {
-                "texture": "rectangle_image",
-                "group": "hud",
-                "scale": {"x": 0.3, "y": 1}
-            }
-        },
-        "player_rectangle": {
-            "type": "rectangle",
-            "position": {"x": 192, "y": 200},
-            "properties": {
-                "texture": "rectangle_image",
-                "group": "hud",
-                "scale": {"x": 0.4, "y": 1}
-            }
-        },
+        
         "building_rectangle": {
             "type": "rectangle",
             "position": {"x": 0, "y": 648},
@@ -62,12 +36,34 @@
         },
         "house": {
             "type": "blueprint",
-            "position": {"x": 10, "y": 600},
+            "position": {"x": 0, "y": 0},
             "properties": {
                 "texture": "h_house",
                 "group": "blueprints",              
                 "stats": {
                     "cost": 10
+                }
+            }
+        },
+        "field": {
+            "type": "blueprint",
+            "position": {"x": 0, "y": 0},
+            "properties": {
+                "texture": "h_house",
+                "group": "blueprints",              
+                "stats": {
+                    "cost": 4
+                }
+            }
+        },
+        "mine": {
+            "type": "blueprint",
+            "position": {"x": 0, "y": 0},
+            "properties": {
+                "texture": "h_house",
+                "group": "blueprints",              
+                "stats": {
+                    "cost": 20
                 }
             }
         },

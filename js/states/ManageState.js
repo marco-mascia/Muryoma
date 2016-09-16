@@ -6,10 +6,8 @@ Muryoma.ManageState = function () {
     
     this.prefab_classes = {
         "background": Muryoma.TilePrefab.prototype.constructor,
-        "rectangle": Muryoma.Prefab.prototype.constructor,
-        "player_unit": Muryoma.PlayerUnit.prototype.constructor,
-        "enemy_unit": Muryoma.EnemyUnit.prototype.constructor,
-        "blueprint": Muryoma.Blueprint.prototype.constructor,
+        "rectangle": Muryoma.Prefab.prototype.constructor,        
+        "blueprint": Muryoma.Blueprint.prototype.constructor
     };
     
     this.TEXT_STYLE = {font: "14px Arial", fill: "#FFFFFF"};
@@ -19,8 +17,8 @@ Muryoma.ManageState.prototype = Object.create(Phaser.State.prototype);
 Muryoma.ManageState.prototype.constructor = Muryoma.ManageState;
 
 Muryoma.ManageState.prototype.init = function (level_data) {
-    console.log('----------------');
-    console.log('ManageState init');
+    //console.log('----------------');
+    //console.log('ManageState init');
     
     "use strict";
     this.level_data = level_data;    
@@ -30,9 +28,8 @@ Muryoma.ManageState.prototype.init = function (level_data) {
 };
 
 Muryoma.ManageState.prototype.create = function () {
-    console.log('----------------');
-    console.log('ManageState create');
-    
+    //console.log('----------------');
+    //console.log('ManageState create');   
 
     "use strict";
     var group_name, prefab_name, player_unit_name, enemy_unit_name;
@@ -60,8 +57,8 @@ Muryoma.ManageState.prototype.create = function () {
 
     // create units array with player and enemy units
     this.units = [];
-    this.units = this.units.concat(this.groups.player_units.children);
-    this.units = this.units.concat(this.groups.enemy_units.children);
+    //this.units = this.units.concat(this.groups.player_units.children);
+    //this.units = this.units.concat(this.groups.enemy_units.children);
     this.units = this.units.concat(this.groups.blueprints.children);
 
     
