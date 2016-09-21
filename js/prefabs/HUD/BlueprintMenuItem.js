@@ -2,11 +2,12 @@ var Muryoma = Muryoma || {};
 
 Muryoma.BlueprintMenuItem = function (game_state, name, position, properties) {
     "use strict";
-
+    /*
     console.log('BlueprintMenuItem ---------------------');    
     console.log('name ', name);
     console.log('position ', position);
     console.log('properties ', properties);
+    */
 
     Muryoma.Prefab.call(this, game_state, name, position, properties);
 
@@ -36,5 +37,5 @@ Muryoma.BlueprintMenuItem.prototype.select = function () {
 
 Muryoma.BlueprintMenuItem.prototype.onInputDown = function (){
     console.log('BlueprintMenuItem clicked: ', this.name);     
-    this.game_state.prefabs.blueprints_menu.setCurrentBlueprint(this);
+    this.game_state.prefabs.hud_menu.setCurrentBlueprint(this);
 };

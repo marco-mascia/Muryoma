@@ -12,8 +12,7 @@
     "groups": [
         "background",
         "player_units",
-        "enemy_units",
-        "blueprints",       
+        "enemy_units",               
         "hud"
     ],
     "bp":{
@@ -22,7 +21,7 @@
             "position": {"x": 0, "y": 0},
             "properties": {
                 "texture": "h_house",
-                "group": "blueprints",              
+                "group": "hud",              
                 "stats": {
                     "cost": 10
                 }
@@ -33,7 +32,7 @@
             "position": {"x": 0, "y": 0},
             "properties": {
                 "texture": "field",
-                "group": "blueprints",              
+                "group": "hud",              
                 "stats": {
                     "cost": 4
                 }
@@ -44,7 +43,7 @@
             "position": {"x": 0, "y": 0},
             "properties": {
                 "texture": "mine",
-                "group": "blueprints",              
+                "group": "hud",              
                 "stats": {
                     "cost": 20
                 }
