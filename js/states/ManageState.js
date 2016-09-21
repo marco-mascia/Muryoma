@@ -48,31 +48,26 @@ Muryoma.ManageState.prototype.create = function () {
             // create prefab
             this.create_prefab(prefab_name, this.level_data.prefabs[prefab_name]);
         }
-    }
+    };
     
-    this.init_hud();
-    
-
-    console.log('this.groups.blueprints.children ', this.groups.blueprints.children);
-
+    this.init_hud();    
     // create units array with player and enemy units
     this.units = [];
     //this.units = this.units.concat(this.groups.player_units.children);
     //this.units = this.units.concat(this.groups.enemy_units.children);
-    this.units = this.units.concat(this.groups.blueprints.children);
+    this.units = this.units.concat(this.groups.blueprints.children);        
+    //this.next_turn();
 
-    
-    
-    this.next_turn();
 };
 
 Muryoma.ManageState.prototype.create_prefab = function (prefab_name, prefab_data) {
     "use strict";
-
+    /*
     console.log('----------------');
     console.log('ManageState create');
     console.log('prefab_name ', prefab_name);
     console.log('prefab_data ', prefab_data);
+    */
     
     var prefab;
     // create object according to its type
@@ -83,19 +78,25 @@ Muryoma.ManageState.prototype.create_prefab = function (prefab_name, prefab_data
 
 Muryoma.ManageState.prototype.init_hud = function () {
     "use strict";
-    var unit_index, player_unit_health;
-    
+    var unit_index, player_unit_health, build_area;
+
     // show player actions
-    this.show_player_actions({x: 106, y: 210});
+    //this.show_player_actions({x: 106, y: 210});
     
     // show player units
-    this.show_units("player_units", {x: 202, y: 210}, Muryoma.PlayerMenuItem.prototype.constructor);
+    //this.show_units("player_units", {x: 202, y: 210}, Muryoma.PlayerMenuItem.prototype.constructor);
     
     // show enemy units
     //this.show_units("enemy_units", {x: 10, y: 210}, Muryoma.EnemyMenuItem.prototype.constructor);
 
     // show enemy units
-    this.show_blueprints("blueprints", {x: 10, y: 660}, Muryoma.EnemyMenuItem.prototype.constructor);
+    this.show_blueprints("blueprints", {x: 10, y: 660}, Muryoma.BlueprintMenuItem.prototype.constructor);
+    /*
+    build_area = new Muryoma.Prefab(this, 'build_area', {x: 0, y: 0}, {"group": "hud", "width": 300, "height": 300, "tint": 0xEACADD});
+    build_area.events.onInputDown.add(function(){
+        console.log('...');
+    }, this);
+    */
 };
 
 Muryoma.ManageState.prototype.show_blueprints = function (group_name, position, menu_item_constructor) {    
@@ -107,24 +108,25 @@ Muryoma.ManageState.prototype.show_blueprints = function (group_name, position, 
     var bp_index, menu_items, bp_menu_item, bp_menu;
     
     bp_index = 0;
-    menu_items = [];
+    menu_items = []; 
 
-    this.groups[group_name].forEach(function (bp) {                       
-        bp_menu_item = new menu_item_constructor(this, bp.name + "_menu_item", {x: position.x, y: position.y + bp_index * 20}, {group: "hud", text: bp.name, style: Object.create(this.TEXT_STYLE)});
+    for (var key in this.level_data.bp) {
+        var item = this.level_data.bp[key];
+        bp_menu_item = new menu_item_constructor(this, key + "_menu_item", {x: position.x + bp_index * 100, y: position.y}, {group: "hud", text: key, texture: item.properties.texture});
         bp_index += 1;
-        menu_items.push(bp_menu_item);    
-    }, this);
+        menu_items.push(bp_menu_item);
+    }  
 
-    bp_menu = new Muryoma.Menu(this, group_name + "_menu", position, {group: "hud", menu_items: menu_items});
-
+    bp_menu = new Muryoma.BlueprintMenu(this, group_name + "_menu", position, {group: "blueprints", menu_items: menu_items});    
+    
 };
 
 
 Muryoma.ManageState.prototype.show_units = function (group_name, position, menu_item_constructor) {
-    
+    /*
     "use strict";
     var unit_index, menu_items, unit_menu_item, units_menu;
-    
+
     // create units menu items
     unit_index = 0;
     menu_items = [];
@@ -134,12 +136,12 @@ Muryoma.ManageState.prototype.show_units = function (group_name, position, menu_
         menu_items.push(unit_menu_item);
     }, this);
     // create units menu
-    units_menu = new Muryoma.Menu(this, group_name + "_menu", position, {group: "hud", menu_items: menu_items});
-    
+    units_menu = new Muryoma.Menu(this, group_name + "_menu", position, {group: "hud", menu_items: menu_items});      
+    */
 };
 
 Muryoma.ManageState.prototype.show_player_actions = function (position) {
-    
+    /*
     "use strict";
     var actions, actions_menu_items, action_index, actions_menu;
     // available actions
@@ -152,7 +154,7 @@ Muryoma.ManageState.prototype.show_player_actions = function (position) {
         action_index += 1;
     }, this);
     actions_menu = new Muryoma.Menu(this, "actions_menu", position, {group: "hud", menu_items: actions_menu_items});
-    
+    */
 };
 
 Muryoma.ManageState.prototype.next_turn = function () {
@@ -169,5 +171,17 @@ Muryoma.ManageState.prototype.next_turn = function () {
     }
     */
 };
+
+Muryoma.ManageState.prototype.render = function(){
+    /*
+    game.debug.cameraInfo(game.camera, 32, 32);                                   
+    for (var group in this.groups){                
+         game.debug.body(group);
+    } 
+    */  
+}
+
+
+
 
 
