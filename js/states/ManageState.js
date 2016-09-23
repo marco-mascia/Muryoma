@@ -113,7 +113,7 @@ Muryoma.ManageState.prototype.show_blueprints = function (group_name, position, 
 
     for (var key in this.level_data.bp) {
         var item = this.level_data.bp[key];
-        bp_menu_item = new menu_item_constructor(this, key + "_menu_item", {x: position.x + bp_index * 100, y: position.y}, {group: "hud", text: key, texture: item.properties.texture});
+        bp_menu_item = new menu_item_constructor(this, key + "_menu_item", {x: position.x + bp_index * 80, y: position.y + 5}, {group: "hud", heigth: 32, width: 32, text: key, texture: item.properties.texture});
         bp_index += 1;
         menu_items.push(bp_menu_item);
     }  

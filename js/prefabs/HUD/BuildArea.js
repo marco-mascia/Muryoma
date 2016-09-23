@@ -57,13 +57,11 @@ Muryoma.BuildArea.prototype.inputOut = function() {
 };
 
 Muryoma.BuildArea.prototype.onInputDown = function() {
-    "use strict";
-    //console.log('BuildArea onInputDown');
-    //console.log('game_state ', this.game_state.groups.hud.children);
+    "use strict";    
     var childArray = this.game_state.groups.hud.children;    
     var hud_menu = childArray.filter(function(a){ return a.name == 'hud_menu' })[0];        
     var marker = childArray.filter(function(a){ return a.name == 'marker' })[0];
-    
+
     game.physics.arcade.enable([marker, this.game_state.groups.buildings]);
     var cBuildings = game.physics.arcade.collide(marker, this.game_state.groups.buildings, function(sprite1, sprite2){                      
        return true;

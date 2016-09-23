@@ -54,35 +54,4 @@
         this.texture = blueprint.texture;
         this.alpha = 0.5;
     }
-    /*
-    Marker = function(game){        
-
-        // create a new bitmap data object
-        var bmd = game.add.bitmapData(64,64);
-
-        // draw to the canvas context like normal
-        bmd.ctx.beginPath();
-        bmd.ctx.rect(0,0,64,64);
-        bmd.ctx.fillStyle = '#652951';
-        bmd.ctx.fill();       
-
-        Phaser.Sprite.call(this, game, 200, 200, bmd);
-
-        this.width = 64; 
-        this.height = 64;                 
-        this.inputEnabled = true;
-        this.alive = true; 
-                   
-    }
-
-    Marker.prototype = Object.create(Phaser.Sprite.prototype);    
-    Marker.prototype.constructor = Marker;
-    Marker.prototype.update = function(){
-        this.x = layer.getTileX(game.input.activePointer.worldX) * 32;
-        this.y = layer.getTileY(game.input.activePointer.worldY) * 32;  
-        game.physics.arcade.collide(this, menu, this.colllisionHandler, this.processHandler);         
-    }; 
-    */   
-    
-
     /* ---------------------------------------------------------------------------------------- */

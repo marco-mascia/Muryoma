@@ -15,6 +15,8 @@ Muryoma.BlueprintMenuItem = function (game_state, name, position, properties) {
     //this.events.onInputOver.add(this.inputOver, this);
     //this.events.onInputOut.add(this.inputOut, this);
     this.events.onInputDown.add(this.onInputDown, this);
+    this.height = 64;
+    this.width = 64;
 };
 
 Muryoma.BlueprintMenuItem.prototype = Object.create(Muryoma.Prefab.prototype);
