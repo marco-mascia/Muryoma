@@ -11,6 +11,8 @@ Muryoma.ManageState = function () {
     };
     
     this.TEXT_STYLE = {font: "14px Arial", fill: "#FFFFFF"};
+
+
 };
 
 Muryoma.ManageState.prototype = Object.create(Phaser.State.prototype);
@@ -32,15 +34,17 @@ Muryoma.ManageState.prototype.create = function () {
     //console.log('ManageState create');   
 
     "use strict";
-    var group_name, prefab_name, player_unit_name, enemy_unit_name;
+    var group_name, prefab_name, player_unit_name, enemy_unit_name, layer, buildings;
     
+    this.show_background();
+    
+
     // create groups
     this.groups = {};
     this.level_data.groups.forEach(function (group_name) {        
         this.groups[group_name] = this.game.add.group();
-    }, this);
-    
-    
+    }, this);  
+
     // create prefabs
     this.prefabs = {};
     for (prefab_name in this.level_data.prefabs) {        
@@ -48,7 +52,9 @@ Muryoma.ManageState.prototype.create = function () {
             // create prefab
             this.create_prefab(prefab_name, this.level_data.prefabs[prefab_name]);
         }
-    };
+    };    
+
+    //this.add_mining_points();
     
     this.init_hud();    
     // create units array with player and enemy units
@@ -57,7 +63,6 @@ Muryoma.ManageState.prototype.create = function () {
     //this.units = this.units.concat(this.groups.enemy_units.children);
     this.units = this.units.concat(this.groups.hud.children);        
     //this.next_turn();
-
 };
 
 Muryoma.ManageState.prototype.create_prefab = function (prefab_name, prefab_data) {
@@ -67,8 +72,8 @@ Muryoma.ManageState.prototype.create_prefab = function (prefab_name, prefab_data
     console.log('ManageState create');
     console.log('prefab_name ', prefab_name);
     console.log('prefab_data ', prefab_data);
-    */
-    
+    */    
+
     var prefab;
     // create object according to its type
     if (this.prefab_classes.hasOwnProperty(prefab_data.type)) {
@@ -87,21 +92,12 @@ Muryoma.ManageState.prototype.init_hud = function () {
     //this.show_units("player_units", {x: 202, y: 210}, Muryoma.PlayerMenuItem.prototype.constructor);
     
     // show enemy units
-    //this.show_units("enemy_units", {x: 10, y: 210}, Muryoma.EnemyMenuItem.prototype.constructor);
+    //this.show_units("enemy_units", {x: 10, y: 210}, Muryoma.EnemyMenuItem.prototype.constructor);  
 
     // show enemy units
     this.show_blueprints("hud", {x: 10, y: 660}, Muryoma.BlueprintMenuItem.prototype.constructor);
-    
-    
-    build_area = new Muryoma.Prefab(this, 'build_area', {x: 30, y: 30}, {group: 'hud', width: 300, height: 300, texture: 'mine'});
+    build_area = new Muryoma.BuildArea(this, layer);      
 
-    build_area.events.onInputDown.add(test, this);
-
-    function test(){
-        console.log('test');
-    }
-    
-    
 };
 
 Muryoma.ManageState.prototype.show_blueprints = function (group_name, position, menu_item_constructor) {    
@@ -125,6 +121,72 @@ Muryoma.ManageState.prototype.show_blueprints = function (group_name, position, 
     bp_menu = new Muryoma.BlueprintMenu(this, group_name + "_menu", position, {group: "hud", menu_items: menu_items});    
     
 };
+
+
+Muryoma.ManageState.prototype.show_background = function() {
+    
+   var map;
+   var data = '';  
+
+    for (var y = 0; y < 50; y++){
+        for (var x = 0; x < 50; x++){
+            //data += this.game.rnd.between(0, 4).toString();
+            data += 0 //underdark
+            if (x < 49){
+                data += ',';
+            }
+        }
+        if (y < 49){
+            data += "\n";
+        }
+    }                  
+
+    this.game.cache.addTilemap('dynamicMap', null, data, Phaser.Tilemap.CSV);
+
+    //  Create our map (the 32x32 is the tile size)        
+    map = this.game.add.tilemap('dynamicMap', 32, 32);
+
+    //  'tiles' = cache image key, 32x32 = tile size
+    //map.addTilesetImage('ground_1x1', 'ground_1x1', 32, 32);
+    map.addTilesetImage('darkcave', 'darkcave', 32, 32);
+
+    //  0 is important
+    //layer = map.createLayer(0);  
+    layer = map.createLayer(0, 1024, 648);  
+    layer.resizeWorld();
+};
+
+
+Muryoma.ManageState.prototype.add_mining_points = function(){
+
+    /* const */
+    var NR_MINING_POINTS = 5;    
+    var WORLD_HEIGHT = 800;
+    var WORLD_WIDTH = 600;
+
+    /* Mining points */
+    
+    var resources = this.game.add.physicsGroup(Phaser.Physics.ARCADE);
+    console.log('gamestate ', this);
+    this.groups['resources'] = resources;
+
+    
+    var i, x, y;
+    for(i = 0; i < NR_MINING_POINTS; i++) {            
+        x = randStep(0, WORLD_WIDTH - 96, 32);    
+        y = randStep(0, WORLD_HEIGHT - 192 , 32);       
+        new Muryoma.MiningPoint(this, {x: x, y: y});
+
+    }  
+    resources.setAll('body.collideWorldBounds', true);  
+    resources.setAll('body.immovable', true);
+    
+    /* get random number at definite step, used for grid coordinates at step of 32px*/        
+    function randStep(min, max, step) {
+        return min + (step * Math.floor(Math.random()*(max-min)/step) );
+    }
+
+}
 
 
 Muryoma.ManageState.prototype.show_units = function (group_name, position, menu_item_constructor) {

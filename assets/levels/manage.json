@@ -1,18 +1,23 @@
 {
     "assets": {
         "rectangle_image": {"type": "image", "source": "assets/images/rectangle.png"},
+        "selection_frame": {"type": "image", "source": "assets/images/selection_frame.png"},
         "grass_tile_image": {"type": "image", "source": "assets/images/grass_tile.png"},
         "male_fighter_spritesheet": {"type": "spritesheet", "source": "assets/images/characters/fighter_m.png", "frame_width": 24, "frame_height": 32},
         "female_mage_spritesheet": {"type": "spritesheet", "source": "assets/images/characters/mage_f.png", "frame_width": 24, "frame_height": 32},
         "bat_spritesheet": {"type": "spritesheet", "source": "assets/images/monsters/bat.png", "frame_width": 128, "frame_height": 128},
         "h_house": {"type": "image", "source": "assets/images/h_house.png"},
         "field": {"type": "image", "source": "assets/images/field.png"},
-        "mine": {"type": "image", "source": "assets/images/mine.png"}
+        "mine": {"type": "image", "source": "assets/images/mine.png"},
+        "ground_1x1": {"type": "image", "source": "assets/tiles/ground_1x1.png"},
+        "darkcave": {"type": "image", "source": "assets/tiles/darkcave.png"}
+
     },
     "groups": [
-        "background",
+        "background",       
         "player_units",
-        "enemy_units",               
+        "enemy_units",
+        "buildings",                
         "hud"
     ],
     "bp":{
@@ -51,21 +56,12 @@
         }
     },
     "prefabs": {
-        "background": {
-            "type": "background",
-            "position": {"x": 0, "y": 0},
-            "properties": {
-                "texture": "grass_tile_image",
-                "group": "background",
-                "width": 1024,
-                "height": 768
-            }
-        },      
+         
         "building_rectangle": {
             "type": "rectangle",
             "position": {"x": 0, "y": 648},
             "properties": {
-                "texture": "rectangle_image",
+                "texture": "selection_frame",
                 "group": "hud"
             }
         },
