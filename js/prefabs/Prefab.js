@@ -20,3 +20,9 @@ Muryoma.Prefab = function (game_state, name, position, properties) {
 
 Muryoma.Prefab.prototype = Object.create(Phaser.Sprite.prototype);
 Muryoma.Prefab.prototype.constructor = Muryoma.Prefab;
+
+Muryoma.Prefab.prototype.render = function(){
+    //"use strict";    
+    //game.debug.body(this);    
+};
+

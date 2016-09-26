@@ -30,15 +30,14 @@
         this.inputEnabled = true; 
         this.input.boundsRect = layer;
         this.input.enableSnap(32, 32, true, true);
-        this.enableBody = true;      
-        game.physics.arcade.enable(this);
+        this.enableBody = true;           
+        //game.physics.arcade.enable(this);
     };
 
     Muryoma.Marker.prototype = Object.create(Muryoma.Prefab.prototype);
     Muryoma.Marker.prototype.constructor = Muryoma.Marker;
     Muryoma.Marker.prototype.update = function(){   
-        var cResources = game.physics.arcade.collide(this, 'hud', this.collisionHandler);         
-
+        var cResources = game.physics.arcade.collide(this, 'hud', this.collisionHandler); 
         this.x = layer.getTileX(game.input.activePointer.worldX) * 32;
         this.y = layer.getTileY(game.input.activePointer.worldY) * 32; 
         //game.physics.arcade.collide(this, menu, this.colllisionHandler, this.processHandler);
@@ -50,8 +49,10 @@
     }
 
     Muryoma.Marker.prototype.setDimensions = function(blueprint){  
-        //console.log('setDimensions ', height + " " + width + " " + texture);          
-        this.texture = blueprint.texture;
+        //console.log('setDimensions ', height + " " + width + " " + texture);                  
+        //console.log('blueprint ', blueprint);
+        this.texture = blueprint.texture;        
+        this.body = blueprint.body;       
         this.alpha = 0.5;
     }
     /* ---------------------------------------------------------------------------------------- */

@@ -25,18 +25,10 @@ Muryoma.BlueprintMenu.prototype.update = function (item_index) {
 
 Muryoma.BlueprintMenu.prototype.setCurrentBlueprint = function (blueprint) {
     "use strict";    
-    this.current_blueprint = blueprint;    
-    
-    console.log("blueprint ", blueprint);
-    
+    this.current_blueprint = blueprint;
     var childArray = this.game_state.groups.hud.children;    
     var marker = childArray.filter(function(a){ return a.name == 'marker' })[0];
-
-    //console.log('blueprint ', blueprint);
-    console.log('marker.texture ', marker);
-
     marker.setDimensions(blueprint);
-
     this.colorDisabled();
     blueprint.tint = 0xFFFFFF;
 };
@@ -47,4 +39,3 @@ Muryoma.BlueprintMenu.prototype.colorDisabled = function(){
         this.blueprintMenu_items[i].tint = 0x75757;
     };
 };
-

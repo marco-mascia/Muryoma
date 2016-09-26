@@ -94,7 +94,7 @@ Muryoma.ManageState.prototype.init_hud = function () {
     // show enemy units
     //this.show_units("enemy_units", {x: 10, y: 210}, Muryoma.EnemyMenuItem.prototype.constructor);  
 
-    // show enemy units
+    // show blueprints
     this.show_blueprints("hud", {x: 10, y: 660}, Muryoma.BlueprintMenuItem.prototype.constructor);
     build_area = new Muryoma.BuildArea(this, layer);      
 
@@ -113,7 +113,7 @@ Muryoma.ManageState.prototype.show_blueprints = function (group_name, position, 
 
     for (var key in this.level_data.bp) {
         var item = this.level_data.bp[key];
-        bp_menu_item = new menu_item_constructor(this, key + "_menu_item", {x: position.x + bp_index * 80, y: position.y + 5}, {group: "hud", heigth: 32, width: 32, text: key, texture: item.properties.texture});
+        bp_menu_item = new menu_item_constructor(this, key + "_menu_item", {x: position.x + bp_index * 80, y: position.y + 5}, {group: "hud", text: key, texture: item.properties.texture});
         bp_index += 1;
         menu_items.push(bp_menu_item);
     }  
@@ -242,10 +242,10 @@ Muryoma.ManageState.prototype.next_turn = function () {
 Muryoma.ManageState.prototype.render = function(){
     /*
     game.debug.cameraInfo(game.camera, 32, 32);                                   
+    */
     for (var group in this.groups){                
          game.debug.body(group);
     } 
-    */  
 }
 
 
