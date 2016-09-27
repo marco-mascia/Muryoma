@@ -18,7 +18,7 @@
         "player_units",
         "enemy_units",
         "buildings",                
-        "hud"
+        "hud"        
     ],
     "bp":{
         "house": {
@@ -60,12 +60,21 @@
     "prefabs": {
          
         "building_rectangle": {
-            "type": "rectangle",
-            "height": 134,
+            "type": "rectangle",            
             "position": {"x": 0, "y": 648},
             "properties": {
-                "texture": "selection_frame",
-                "group": "hud"
+                "texture": "selection_frame",                
+                "group": "hud",
+                "scale": {"x": 1, "y": 1.05}                            
+            }
+        },
+        "info_rectangle": {
+            "type": "rectangle",            
+            "position": {"x": 266, "y": 648},
+            "properties": {
+                "texture": "selection_frame",                
+                "group": "hud",
+                "scale": {"x": 1, "y": 1.05}                            
             }
         },
         "fighter": {

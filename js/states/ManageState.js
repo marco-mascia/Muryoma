@@ -10,9 +10,7 @@ Muryoma.ManageState = function () {
         "blueprint": Muryoma.Blueprint.prototype.constructor
     };
     
-    this.TEXT_STYLE = {font: "14px Arial", fill: "#FFFFFF"};
-
-
+    this.TEXT_STYLE = {font: "14px Arial", fill: "#9a7b6e"};
 };
 
 Muryoma.ManageState.prototype = Object.create(Phaser.State.prototype);
@@ -83,7 +81,7 @@ Muryoma.ManageState.prototype.create_prefab = function (prefab_name, prefab_data
 
 Muryoma.ManageState.prototype.init_hud = function () {
     "use strict";
-    var unit_index, player_unit_health, build_area;
+    var unit_index, player_unit_health, build_area, stat_manager;
 
     // show player actions
     //this.show_player_actions({x: 106, y: 210});
@@ -96,6 +94,8 @@ Muryoma.ManageState.prototype.init_hud = function () {
 
     // show blueprints
     this.show_blueprints("hud", {x: 10, y: 660}, Muryoma.BlueprintMenuItem.prototype.constructor);
+    //this.create_stats("hud", {x: 290, y: 665}, Muryoma.BlueprintMenuItem.prototype.constructor);
+    stat_manager = new Muryoma.StatManager(this, "stat_manager", {x: 290, y: 665}, {group: "hud"})
     build_area = new Muryoma.BuildArea(this, layer);      
 
 };
@@ -121,7 +121,6 @@ Muryoma.ManageState.prototype.show_blueprints = function (group_name, position, 
     bp_menu = new Muryoma.BlueprintMenu(this, group_name + "_menu", position, {group: "hud", menu_items: menu_items});    
     
 };
-
 
 Muryoma.ManageState.prototype.show_background = function() {
     

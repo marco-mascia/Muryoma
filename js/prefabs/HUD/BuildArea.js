@@ -5,7 +5,7 @@ Muryoma.BuildArea = function (game_state, layer) {
 
     var name = 'build_area';    
     var position = {x: 0, y: 0};
-    var height = 648;
+    var height = 584;
     var width = 1024;
 
     // create a new bitmap data object
@@ -28,8 +28,7 @@ Muryoma.BuildArea = function (game_state, layer) {
     this.input.enableSnap(32, 32, false, true);
     this.events.onInputOver.add(this.inputOver, this);
     this.events.onInputOut.add(this.inputOut, this);
-    this.events.onInputDown.add(this.onInputDown, this);
-  
+    this.events.onInputDown.add(this.onInputDown, this);  
 };
 
 Muryoma.BuildArea.prototype = Object.create(Muryoma.Prefab.prototype);
@@ -72,7 +71,9 @@ Muryoma.BuildArea.prototype.onInputDown = function() {
         var x = layer.getTileX(game.input.activePointer.worldX) * 32;
         var y = layer.getTileY(game.input.activePointer.worldY) * 32; 
         var properties = {group:'buildings', texture: cbp.texture};   
-        new Muryoma.Building(this.game_state, cbp.key, {x:x, y:y}, properties);    
+        new Muryoma.Building(this.game_state, cbp.key, {x:x, y:y}, properties);         
+        //hud_menu.current_blueprint = null;
+        //marker.kill();        
     }   
     
 };
