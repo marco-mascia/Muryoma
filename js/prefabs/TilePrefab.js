@@ -1,3 +1,4 @@
+console.log('TilePrefab');
 var Muryoma = Muryoma || {};
 
 Muryoma.TilePrefab = function (game_state, name, position, properties) {

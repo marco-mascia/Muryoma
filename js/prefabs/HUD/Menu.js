@@ -1,15 +1,9 @@
+console.log('Menu');
+
 var Muryoma = Muryoma || {};
 
 Muryoma.Menu = function (game_state, name, position, properties) {
-    "use strict";
-    /*
-    console.log('---------------------');
-    console.log('game_state ', game_state);
-    console.log('name ', name);
-    console.log('position ', position);
-    console.log('properties ', properties);
-    */
-    
+    "use strict";    
     var live_index, life;
     Muryoma.Prefab.call(this, game_state, name, position, properties);
     
@@ -22,10 +16,8 @@ Muryoma.Menu = function (game_state, name, position, properties) {
 Muryoma.Menu.prototype = Object.create(Muryoma.Prefab.prototype);
 Muryoma.Menu.prototype.constructor = Muryoma.Menu;
 
-Muryoma.Menu.prototype.process_input = function (event) {
-    
-    console.log('menu process_input ', event.keyCode);
-
+Muryoma.Menu.prototype.process_input = function (event) {    
+    //console.log('menu process_input ', event.keyCode);
     "use strict";
     switch (event.keyCode) {
     case Phaser.Keyboard.UP:
@@ -92,7 +84,7 @@ Muryoma.Menu.prototype.enable = function () {
 };
 
 Muryoma.Menu.prototype.disable = function () {
-    
+    "use strict";
     /*
     "use strict";
     if (this.menu_items.length > 0) {

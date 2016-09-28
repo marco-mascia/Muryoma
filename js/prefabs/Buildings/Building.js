@@ -1,3 +1,4 @@
+console.log('Building');
 var Muryoma = Muryoma || {};
 
 Muryoma.Building = function (game_state, name, position, properties) {
@@ -28,3 +29,6 @@ Muryoma.Building.prototype.onInputDown = function() {
     "use strict";
     console.log('Building onInputDown');
 };
+
+console.log('Building2');
+

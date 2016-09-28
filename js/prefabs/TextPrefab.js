@@ -1,3 +1,4 @@
+console.log('TextPrefab');
 var Muryoma = Muryoma || {};
 
 Muryoma.TextPrefab = function (game_state, name, position, properties) {

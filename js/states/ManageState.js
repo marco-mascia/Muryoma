@@ -1,3 +1,4 @@
+console.log('ManageState');
 var Muryoma = Muryoma || {};
 
 Muryoma.ManageState = function () {
@@ -11,6 +12,10 @@ Muryoma.ManageState = function () {
     };
     
     this.TEXT_STYLE = {font: "14px Arial", fill: "#9a7b6e"};
+
+    this.SHORT_TIME = 3000;
+    this.MEDIUM_TIME = this.SHORT_TIME * 2;
+    this.LONG_TIME = this.MEDIUM_TIME * 2;
 };
 
 Muryoma.ManageState.prototype = Object.create(Phaser.State.prototype);

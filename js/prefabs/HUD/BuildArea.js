@@ -67,6 +67,7 @@ Muryoma.BuildArea.prototype.onInputDown = function() {
     });  
 
     var cbp = hud_menu.current_blueprint; 
+    console.log('current_blueprint ', hud_menu.current_blueprint);
     if(cbp && !cBuildings){
         var x = layer.getTileX(game.input.activePointer.worldX) * 32;
         var y = layer.getTileY(game.input.activePointer.worldY) * 32; 

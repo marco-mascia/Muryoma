@@ -12,6 +12,10 @@ Muryoma.StatManager = function (game_state, name, position, properties) {
     game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
     this.counter = 0;
 
+
+    this.population = 0; //total population
+    this.supplySpace = 0; //space needed for the population
+
 };
 
 function updateCounter() {
@@ -22,12 +26,13 @@ Muryoma.StatManager.prototype = Object.create(Muryoma.TextPrefab.prototype);
 Muryoma.StatManager.prototype.constructor = Muryoma.StatManager;
 
 Muryoma.StatManager.prototype.update = function () {
-    "use strict";        
+    "use strict"; 
+
     var data = [
-        [ 'Population', '10', 'LOL', '' ],
-        [ 'Population', '10', 'ASD', '' ],
-        [ 'Population', '10', 'LOL', '' ],
-        [ 'Time', this.counter , 'ASD', '' ]        
+    	[ 'Time', this.counter , '', '' ],        
+        [ 'Population', this.population, '', '' ],
+        [ 'Supply', this.supplySpace, '', '' ],        
+        
     ];
    this.mydata.parseList(data);
 };

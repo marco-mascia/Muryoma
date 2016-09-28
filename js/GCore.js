@@ -164,7 +164,7 @@
             }
         } 
 
-        console.log('data ', data);
+        
              
 
         game.cache.addTilemap('dynamicMap', null, data, Phaser.Tilemap.CSV);

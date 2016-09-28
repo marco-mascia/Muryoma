@@ -1,3 +1,4 @@
+console.log('MenuItem');
 var Muryoma = Muryoma || {};
 
 Muryoma.MenuItem = function (game_state, name, position, properties) {

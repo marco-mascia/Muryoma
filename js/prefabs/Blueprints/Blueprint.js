@@ -1,16 +1,9 @@
+console.log('Blueprint');
 var Muryoma = Muryoma || {};
-
 Muryoma.Blueprint = function (game_state, name, position, properties) {
     "use strict";
     Muryoma.Prefab.call(this, game_state, name, position, properties);    
-    //this.anchor.setTo(0.5);    
     this.stats = properties.stats;
-    /*    
-    this.attacked_animation = this.game_state.game.add.tween(this);
-    this.attacked_animation.to({tint: 0xFF0000}, 200);
-    this.attacked_animation.onComplete.add(this.restore_tint, this);
-    */
-
     this.inputEnabled = true;
     this.events.onInputOver.add(this.inputOver, this);
     this.events.onInputOut.add(this.inputOut, this);
