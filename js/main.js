@@ -1,4 +1,3 @@
-alert('Main');
 var Muryoma = Muryoma || {};
 var game = new Phaser.Game(1024, 768, Phaser.CANVAS);
 game.state.add("BootState", new Muryoma.BootState());
