@@ -9,15 +9,18 @@
         "h_house": {"type": "image", "source": "assets/images/h_house.png"},
         "field": {"type": "image", "source": "assets/images/field.png"},
         "mine": {"type": "image", "source": "assets/images/mine.png"},
+        "ore": {"type": "image", "source": "assets/images/ore.png"},
         "ground_1x1": {"type": "image", "source": "assets/tiles/ground_1x1.png"},
-        "darkcave": {"type": "image", "source": "assets/tiles/darkcave.png"}
+        "darkcave": {"type": "image", "source": "assets/tiles/darkcave.png"},
+        "texture": {"type": "image", "source": "assets/tiles/texture.png"}
 
     },
     "groups": [
         "background",       
         "player_units",
         "enemy_units",
-        "buildings",                
+        "resources",  
+        "buildings",
         "hud"        
     ],
     "bp":{
@@ -29,7 +32,8 @@
                 "group": "hud",                              
                 "stats": {
                     "cost": 10
-                }
+                },
+                "builder": "house"
             }
         },
         "field": {
@@ -42,7 +46,8 @@
                 "width": 64,
                 "stats": {
                     "cost": 4
-                }
+                },
+                "builder": "field"
             }
         },
         "mine": {
@@ -53,7 +58,8 @@
                 "group": "hud",              
                 "stats": {
                     "cost": 20
-                }
+                },
+                "builder": "mine"
             }
         }
     },
