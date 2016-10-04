@@ -17,6 +17,10 @@ Muryoma.StatManager = function (game_state, name, position, properties) {
     this.counter = 0;
     this.population = 0; //total population
     this.supplySpace = 0; //space needed for the population
+    this.unemployed = 0; //total of not working population
+    this.workers = 0;
+    this.foodProdRate = 0;
+    this.ore = 0; //mined ore (generic for now)
     this.fixedToCamera = true; 
 };
 
@@ -29,11 +33,20 @@ Muryoma.StatManager.prototype.constructor = Muryoma.StatManager;
 
 Muryoma.StatManager.prototype.update = function () {
     "use strict";
+    /*
     var data = [
     	[ 'Time', this.counter , '', '' ],        
         [ 'Population', this.population, '', '' ],
-        [ 'Supply', this.supplySpace, '', '' ],        
-        
+        [ 'Unemployed', this.unemployed, '', '' ], 
+        [ 'Workers', this.workers, '', '' ], 
+        [ 'Supply', this.supplySpace, '', '' ],  
+        [ 'Food', this.foodProdRate, '', '' ]        
+    ];
+    */
+    var data = [
+        [ 'Time', this.counter , 'Population', this.population ],                
+        [ 'Unemployed', this.unemployed, 'Workers', this.workers ],        
+        [ 'Supply', this.supplySpace, 'Food', this.foodProdRate ]            
     ];
    this.mydata.parseList(data);
 };

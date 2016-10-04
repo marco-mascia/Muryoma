@@ -3,11 +3,16 @@ var Muryoma = Muryoma || {};
 Muryoma.Prefab = function (game_state, name, position, properties) {
     "use strict";
     Phaser.Sprite.call(this, game_state.game, position.x, position.y, properties.texture);
-    
+    /*
+    console.log('Prefab');
+    console.log('---------------');
+    console.log('Resource ', name);
+    console.log('position ', position);
+    console.log('properties ', properties);
+    */
+
     this.game_state = game_state;
-    
     this.name = name;
-    
     this.game_state.groups[properties.group].add(this);
     this.frame = +properties.frame;
     
@@ -16,10 +21,6 @@ Muryoma.Prefab = function (game_state, name, position, properties) {
     }
     
     this.game_state.prefabs[name] = this;
-
-    game.physics.arcade.enable(this);
-    this.body.immovable = true;
-    this.body.moves = false;
 };
 
 Muryoma.Prefab.prototype = Object.create(Phaser.Sprite.prototype);
@@ -27,6 +28,6 @@ Muryoma.Prefab.prototype.constructor = Muryoma.Prefab;
 
 Muryoma.Prefab.prototype.render = function(){
     //"use strict";    
-    //game.debug.body(this);    
+    game.debug.body(this);    
 };
 

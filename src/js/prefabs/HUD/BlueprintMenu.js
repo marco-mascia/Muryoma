@@ -26,7 +26,7 @@ Muryoma.BlueprintMenu.prototype.update = function (item_index) {
 
 Muryoma.BlueprintMenu.prototype.setCurrentBlueprint = function (blueprint) {
     "use strict";    
-    console.log('setCurrentBlueprint ', blueprint);
+    //console.log('setCurrentBlueprint ', blueprint);
     
     this.current_blueprint = blueprint;
     var childArray = this.game_state.groups.hud.children;    

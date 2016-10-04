@@ -10,6 +10,12 @@ Muryoma.ManageState = function () {
         "rectangle": Muryoma.Prefab.prototype.constructor,        
         "blueprint": Muryoma.Blueprint.prototype.constructor
     };
+
+    this.buildings_classes = {
+        'house': Muryoma.House.prototype.constructor,
+        'field': Muryoma.Field.prototype.constructor,
+        'mine': Muryoma.Mine.prototype.constructor,
+    };
     
     this.TEXT_STYLE = {font: "14px Arial", fill: "#9a7b6e"};
 
@@ -17,8 +23,7 @@ Muryoma.ManageState = function () {
     this.MEDIUM_TIME = this.SHORT_TIME * 2;
     this.LONG_TIME = this.MEDIUM_TIME * 2;
     this.WORLD_HEIGHT = 1600;
-    this.WORLD_WIDTH = 1600;
-    this.cursors;
+    this.WORLD_WIDTH = 1600;    
 };
 
 Muryoma.ManageState.prototype = Object.create(Phaser.State.prototype);
@@ -70,7 +75,7 @@ Muryoma.ManageState.prototype.create = function () {
         }
     }   
 
-    //this.add_mining_points();
+    this.add_resources();
     
     this.init_hud();    
     // create units array with player and enemy units
@@ -93,13 +98,14 @@ Muryoma.ManageState.prototype.create_prefab = function (prefab_name, prefab_data
     var prefab;
     // create object according to its type
     if (this.prefab_classes.hasOwnProperty(prefab_data.type)) {
+        console.log('prefab_data.type ', prefab_data.type);
         prefab = new this.prefab_classes[prefab_data.type](this, prefab_name, prefab_data.position, prefab_data.properties);
     }
 };
 
 Muryoma.ManageState.prototype.init_hud = function () {
     "use strict";
-    var unit_index, player_unit_health, build_area, stat_manager;
+    var unit_index, player_unit_health, build_area;
 
     // show player actions
     //this.show_player_actions({x: 106, y: 210});
@@ -111,9 +117,9 @@ Muryoma.ManageState.prototype.init_hud = function () {
     //this.show_units("enemy_units", {x: 10, y: 210}, Muryoma.EnemyMenuItem.prototype.constructor);  
 
     // show blueprints
-    this.show_blueprints("hud", {x: 0, y: 650}, Muryoma.BlueprintMenuItem.prototype.constructor);
+    this.show_blueprints("hud", {x: 5, y: 650}, Muryoma.BlueprintMenuItem.prototype.constructor);
     //this.create_stats("hud", {x: 290, y: 665}, Muryoma.BlueprintMenuItem.prototype.constructor);
-    stat_manager = new Muryoma.StatManager(this, "stat_manager", {x: 270, y: 650}, {group: "hud", texture: "selection_frame"});
+    this.stat_manager = new Muryoma.StatManager(this, "stat_manager", {x: 270, y: 650}, {group: "hud", texture: "selection_frame"});
     build_area = new Muryoma.BuildArea(this, layer);      
 
 };
@@ -135,8 +141,9 @@ Muryoma.ManageState.prototype.show_blueprints = function (group_name, position, 
     var defY = position.y + 20;
 
     for (var key in this.level_data.bp) {
-        var item = this.level_data.bp[key];    
-        bp_menu_item = new menu_item_constructor(this, key + "_menu_item", {x: defX + bp_index * 80, y: defY}, {group: "hud", text: key, texture: item.properties.texture});
+        var item = this.level_data.bp[key]; 
+        //console.log('item ', item);   
+        bp_menu_item = new menu_item_constructor(this, key + "_menu_item", {x: defX + bp_index * 80, y: defY}, {group: "hud", text: key, texture: item.properties.texture, builder: item.properties.builder, needResource: item.properties.needResource});
         bp_index += 1;
         menu_items.push(bp_menu_item);
     }  
@@ -153,6 +160,7 @@ Muryoma.ManageState.prototype.show_background = function() {
     for (var y = 0; y < 50; y++){
         for (var x = 0; x < 50; x++){
             //data += this.game.rnd.between(0, 4).toString();
+            //data += this.game.rnd.between(0, 6).toString();
             data += 0; //underdark
             if (x < 49){
                 data += ',';
@@ -170,6 +178,7 @@ Muryoma.ManageState.prototype.show_background = function() {
 
     //  'tiles' = cache image key, 32x32 = tile size
     //map.addTilesetImage('ground_1x1', 'ground_1x1', 32, 32);
+    //map.addTilesetImage('texture', 'texture', 32, 32);
     map.addTilesetImage('darkcave', 'darkcave', 32, 32);
 
     //  0 is important
@@ -179,30 +188,22 @@ Muryoma.ManageState.prototype.show_background = function() {
 };
 
 
-Muryoma.ManageState.prototype.add_mining_points = function(){
+Muryoma.ManageState.prototype.add_resources = function(){
 
-    /* const */
-    var NR_MINING_POINTS = 5;    
-    var WORLD_HEIGHT = 800;
-    var WORLD_WIDTH = 600;
+    for (var key in this.level_data.resources) {
+        var resource = this.level_data.resources[key];   
+        var tempGroup = key;
 
-    /* Mining points */
-    
-    var resources = this.game.add.physicsGroup(Phaser.Physics.ARCADE);
-    console.log('gamestate ', this);
-    this.groups.resources = resources;
-
-    
-    var i, x, y;
-    for(i = 0; i < NR_MINING_POINTS; i++) {            
-        x = randStep(0, WORLD_WIDTH - 96, 32);    
-        y = randStep(0, WORLD_HEIGHT - 192 , 32);       
-        //new Muryoma.MiningPoint(this, {x: x, y: y});
-
+        this.groups[tempGroup] = this.game.add.group();
+        
+        var i, x, y;
+        for (i = resource.points - 1; i >= 0; i--) {            
+            x = randStep(0, this.WORLD_WIDTH - 96, 32);    
+            y = randStep(0, this.WORLD_HEIGHT - 192 , 32);   
+            new Muryoma.Resource(this, key + "_" +i , {x: x, y: y}, {group: key, label: resource.label, texture: resource.texture});    
+        }                      
     }  
-    resources.setAll('body.collideWorldBounds', true);  
-    resources.setAll('body.immovable', true);
-    
+
     /* get random number at definite step, used for grid coordinates at step of 32px*/        
     function randStep(min, max, step) {
         return min + (step * Math.floor(Math.random()*(max-min)/step) );
@@ -261,9 +262,9 @@ Muryoma.ManageState.prototype.next_turn = function () {
     */
 };
 
-Muryoma.ManageState.prototype.render = function(){
-    
-    game.debug.cameraInfo(game.camera, 32, 32);                                   
+Muryoma.ManageState.prototype.render = function(){    
+    game.debug.cameraInfo(game.camera, 32, 32);
+    game.debug.body(this.groups);   
 
 };
 
@@ -273,13 +274,13 @@ Muryoma.ManageState.prototype.update = function(){
         game.camera.y -= 32;
     } else if (this.cursors.down.isDown){
         game.camera.y += 32;
-    };
+    }
 
     if (this.cursors.left.isDown){
         game.camera.x -= 32;
     } else if (this.cursors.right.isDown){
         game.camera.x += 32;
-    };
+    }
 };
 
 

@@ -28,7 +28,8 @@ Muryoma.BuildArea = function (game_state, layer) {
     this.input.enableSnap(32, 32, false, true);
     this.events.onInputOver.add(this.inputOver, this);
     this.events.onInputOut.add(this.inputOut, this);
-    this.events.onInputDown.add(this.onInputDown, this);  
+    this.events.onInputDown.add(this.onInputDown, this); 
+    this.fixedToCamera = true;  
 };
 
 Muryoma.BuildArea.prototype = Object.create(Muryoma.Prefab.prototype);
@@ -55,6 +56,18 @@ Muryoma.BuildArea.prototype.inputOut = function() {
     this.marker.visible = false;  
 };
 
+Muryoma.BuildArea.prototype.checkResources = function(cbp, marker) {
+   if(cbp.needResource){        
+        var type = cbp.needResource.type;
+        game.physics.arcade.enable([marker, this.game_state.groups[type]]);                 
+        var cBuildings = game.physics.arcade.collide(marker, this.game_state.groups[type], function(sprite1, sprite2){ 
+            return true;
+        }); 
+        return cBuildings;
+    };
+    return true; 
+}
+
 Muryoma.BuildArea.prototype.onInputDown = function() {
     "use strict";    
     var childArray = this.game_state.groups.hud.children;    
@@ -66,15 +79,19 @@ Muryoma.BuildArea.prototype.onInputDown = function() {
        return true;
     });  
 
-    var cbp = hud_menu.current_blueprint; 
-    console.log('current_blueprint ', hud_menu.current_blueprint);
-    if(cbp && !cBuildings){
+    var cbp = hud_menu.current_blueprint;
+    var checkResources = this.checkResources(cbp, marker);
+    console.log('checkResources ', checkResources);
+
+    if(cbp && !cBuildings && checkResources){
         var x = layer.getTileX(game.input.activePointer.worldX) * 32;
         var y = layer.getTileY(game.input.activePointer.worldY) * 32; 
+
+        //console.log('cpb ', cpb)
         var properties = {group:'buildings', texture: cbp.texture};   
-        new Muryoma.Building(this.game_state, cbp.key, {x:x, y:y}, properties);         
-        //hud_menu.current_blueprint = null;
-        //marker.kill();        
+
+        //console.log('BuildArea -> properties ', properties);         
+        new this.game_state.buildings_classes[cbp.builder](this.game_state, cbp.key, {x:x, y:y}, properties);     
     }   
     
 };

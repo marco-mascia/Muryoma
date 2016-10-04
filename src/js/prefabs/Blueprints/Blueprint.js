@@ -1,14 +1,12 @@
 var Muryoma = Muryoma || {};
 Muryoma.Blueprint = function (game_state, name, position, properties) {
     "use strict";
-    Muryoma.Prefab.call(this, game_state, name, position, properties);    
-    this.stats = properties.stats;
+    Muryoma.Prefab.call(this, game_state, name, position, properties);       
     this.inputEnabled = true;
     this.events.onInputOver.add(this.inputOver, this);
     this.events.onInputOut.add(this.inputOut, this);
     this.events.onInputDown.add(this.onInputDown, this);
-
-        this.body.immovable = true;
+    
 
 
 };
