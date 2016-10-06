@@ -3,10 +3,11 @@ var Muryoma = Muryoma || {};
 Muryoma.BlueprintMenu = function (game_state, name, position, properties) {
     "use strict";
     /*
-    console.log('---------------------');
+    console.log('BlueprintMenu ---------------------');
     console.log('game_state ', game_state);
     console.log('name ', name);
     console.log('position ', position);
+    console.log('properties ', properties);
     */
     
     var live_index, life;

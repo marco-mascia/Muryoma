@@ -1,4 +1,3 @@
-console.log('ManageState');
 var Muryoma = Muryoma || {};
 
 Muryoma.ManageState = function () {
@@ -74,15 +73,14 @@ Muryoma.ManageState.prototype.create = function () {
             this.create_prefab(prefab_name, this.level_data.prefabs[prefab_name]);
         }
     }   
-
-    this.add_resources();
-    
+    this.add_resources();    
     this.init_hud();    
+
     // create units array with player and enemy units
-    this.units = [];
+    //this.units = [];
     //this.units = this.units.concat(this.groups.player_units.children);
     //this.units = this.units.concat(this.groups.enemy_units.children);
-    this.units = this.units.concat(this.groups.hud.children);        
+    //this.units = this.units.concat(this.groups.hud.children);        
     //this.next_turn();
 };
 
@@ -106,22 +104,22 @@ Muryoma.ManageState.prototype.create_prefab = function (prefab_name, prefab_data
 Muryoma.ManageState.prototype.init_hud = function () {
     "use strict";
     var unit_index, player_unit_health, build_area;
+    /*
+    var height = 584;
+    var width = 1024;
+    var bmd = game.add.bitmapData(width,height);       
+    bmd.ctx.beginPath();
+    bmd.ctx.rect(0,0,width,height);    
+    bmd.ctx.fillStyle = '#EACADD';        
+    bmd.ctx.fill();
+    */
 
-    // show player actions
-    //this.show_player_actions({x: 106, y: 210});
-    
-    // show player units
-    //this.show_units("player_units", {x: 202, y: 210}, Muryoma.PlayerMenuItem.prototype.constructor);
-    
-    // show enemy units
-    //this.show_units("enemy_units", {x: 10, y: 210}, Muryoma.EnemyMenuItem.prototype.constructor);  
-
-    // show blueprints
-    this.show_blueprints("hud", {x: 5, y: 650}, Muryoma.BlueprintMenuItem.prototype.constructor);
-    //this.create_stats("hud", {x: 290, y: 665}, Muryoma.BlueprintMenuItem.prototype.constructor);
-    this.stat_manager = new Muryoma.StatManager(this, "stat_manager", {x: 270, y: 650}, {group: "hud", texture: "selection_frame"});
+   
+    //create stats
+    this.stat_manager = new Muryoma.StatManager(this, "stat_manager", {x: 264, y: 655}, {group: "hud", texture: "selection_frame"});
     build_area = new Muryoma.BuildArea(this, layer);      
-
+     // show blueprints
+    this.show_blueprints("hud", {x: 0, y: 655}, Muryoma.BlueprintMenuItem.prototype.constructor);    
 };
 
 Muryoma.ManageState.prototype.show_blueprints = function (group_name, position, menu_item_constructor) {    
@@ -146,10 +144,10 @@ Muryoma.ManageState.prototype.show_blueprints = function (group_name, position, 
         bp_menu_item = new menu_item_constructor(this, key + "_menu_item", {x: defX + bp_index * 80, y: defY}, {group: "hud", text: key, texture: item.properties.texture, builder: item.properties.builder, needResource: item.properties.needResource});
         bp_index += 1;
         menu_items.push(bp_menu_item);
-    }  
+    }
+    bp_menu.menu_items = menu_items;   
 
-    bp_menu.menu_items = menu_items;
-    
+    game.world.bringToTop(this.groups.hud); 
 };
 
 Muryoma.ManageState.prototype.show_background = function() {
@@ -183,7 +181,7 @@ Muryoma.ManageState.prototype.show_background = function() {
 
     //  0 is important
     //layer = map.createLayer(0);  
-    layer = map.createLayer(0, 1024, 648);  
+    layer = map.createLayer(0, 1024, 655);  
     layer.resizeWorld();
 };
 
@@ -263,9 +261,7 @@ Muryoma.ManageState.prototype.next_turn = function () {
 };
 
 Muryoma.ManageState.prototype.render = function(){    
-    game.debug.cameraInfo(game.camera, 32, 32);
-    game.debug.body(this.groups);   
-
+    //game.debug.cameraInfo(game.camera, 32, 32);    
 };
 
 Muryoma.ManageState.prototype.update = function(){        

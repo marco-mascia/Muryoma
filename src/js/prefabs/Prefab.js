@@ -28,6 +28,6 @@ Muryoma.Prefab.prototype.constructor = Muryoma.Prefab;
 
 Muryoma.Prefab.prototype.render = function(){
     //"use strict";    
-    game.debug.body(this);    
+    //game.debug.body(this);    
 };
 

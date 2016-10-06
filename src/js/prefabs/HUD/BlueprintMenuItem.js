@@ -12,6 +12,7 @@ Muryoma.BlueprintMenuItem = function (game_state, name, position, properties) {
     Muryoma.Prefab.call(this, game_state, name, position, properties);     
     this.builder = properties.builder;
     this.needResource = properties.needResource;
+    this.cost = properties.cost;
 
     this.inputEnabled = true;
     //this.events.onInputOver.add(this.inputOver, this);
